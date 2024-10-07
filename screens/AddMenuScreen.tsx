@@ -1,4 +1,3 @@
-// screens/AddMenuScreen.tsx
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
@@ -52,15 +51,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#FFC0CB', // Pink background (same as HomeScreen)
   },
   label: {
     fontSize: 18,
     marginVertical: 8,
+    color: '#333', // Dark text
+    fontFamily: 'Arial', // Same font as HomeScreen (adjust if needed)
   },
   input: {
     borderWidth: 1,
     padding: 8,
     borderRadius: 5,
     marginBottom: 10,
+    borderColor: '#ccc',
+    backgroundColor: '#fff', // White input fields
   },
 });

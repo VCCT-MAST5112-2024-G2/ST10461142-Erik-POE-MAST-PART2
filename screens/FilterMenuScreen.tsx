@@ -1,4 +1,3 @@
-// screens/FilterMenuScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -20,9 +19,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#FFC0CB', // Pink background (same as HomeScreen)
   },
   title: {
-    fontSize: 24,
+    fontSize: 28, // Same size as HomeScreen title
+    fontWeight: 'bold',
+    color: '#333', // Dark gray text (same as HomeScreen)
     marginBottom: 20,
+    fontFamily: 'Arial', // Same font as HomeScreen (adjust if you want a custom font)
   },
 });

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import MenuList from '../components/MenuList';
+import AveragePrices from '../components/AveragePrices';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 
@@ -13,41 +15,27 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
       setMenuItems(route.params.menuItems);
     }
   }, [route.params?.menuItems]);
-  
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Chef's Menu</Text>
       
-      {/*"Add Menu Button" */}
-      <TouchableOpacity 
-        style={styles.button} 
-        onPress={() => navigation.navigate('AddMenu', { menuItems })}
-      >
+      {/* Navigation Buttons */}
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddMenu', { menuItems })}>
         <Text style={styles.buttonText}>Add Menu</Text>
       </TouchableOpacity>
       
-      {/*"Filter Menu Button" */}
-      <TouchableOpacity 
-        style={styles.button} 
-        onPress={() => navigation.navigate('FilterMenu', { menuItems })}
-      >
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FilterMenu', { menuItems })}>
         <Text style={styles.buttonText}>Filter Menu</Text>
       </TouchableOpacity>
 
       <Text style={styles.subtitle}>Total Items: {menuItems.length}</Text>
 
-      <FlatList
-        data={menuItems}
-        keyExtractor={(item, index) => `${item.dishName}-${index}`}
-        renderItem={({ item }) => (
-          <View style={styles.menuItem}>
-            <Text style={styles.menuText}>{item.dishName} - {item.course}</Text>
-            <Text style={styles.menuText}>{item.description}</Text>
-            <Text style={styles.menuText}>${item.price.toFixed(2)}</Text>
-          </View>
-        )}
-      />
+      {/* Display Average Prices */}
+      <AveragePrices menuItems={menuItems} />
+
+      {/* Display Menu List */}
+      <MenuList menuItems={menuItems} />
     </View>
   );
 }
@@ -58,45 +46,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#FFC0CB', //Pink background 
+    backgroundColor: '#FFC0CB',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#333', // Dark text 
+    color: '#333',
   },
   subtitle: {
     fontSize: 18,
     marginVertical: 10,
-    color: '#555', 
-  },
-  menuItem: {
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-    paddingVertical: 10,
-  },
-  menuText: {
-    fontSize: 16,
-    color: '#333',
+    color: '#555',
   },
   button: {
-    backgroundColor: '#fff', // A darker pink for the button
+    backgroundColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
     marginVertical: 10,
     alignItems: 'center',
-    shadowColor: '#000', // 
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
-    elevation: 5, 
+    elevation: 5,
   },
   buttonText: {
-    color: '#333', 
+    color: '#333',
     fontWeight: 'bold',
   },
 });
+
+
 
 

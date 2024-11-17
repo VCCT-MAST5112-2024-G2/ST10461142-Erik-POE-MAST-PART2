@@ -20,13 +20,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#FFC0CB', // Pink background (same as HomeScreen)
+    backgroundColor: '#FFC0CB', 
   },
   title: {
-    fontSize: 28, // Same size as HomeScreen title
+    fontSize: 28, 
     fontWeight: 'bold',
-    color: '#333', // Dark gray text (same as HomeScreen)
+    color: '#333', 
     marginBottom: 20,
-    fontFamily: 'Arial', // Same font as HomeScreen (adjust if you want a custom font)
+    fontFamily: "sans-serif",
+    opacity: 0.50,
   },
 });

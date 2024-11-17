@@ -1,7 +1,8 @@
-// types.ts
 export type RootStackParamList = {
-    Home: { newItem?: { dishName: string, description: string, course: string, price: number } };
-    AddMenu: undefined;
-    FilterMenu: undefined;
-  };
+  Home: { menuItems?: { dishName: string; description: string; course: string; price: number }[] };
+  AddMenu: { menuItems?: { dishName: string; description: string; course: string; price: number }[] };
+  FilterMenu: undefined;
+};
+
+
   

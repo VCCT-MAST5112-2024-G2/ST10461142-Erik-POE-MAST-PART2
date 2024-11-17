@@ -9,10 +9,11 @@ const courses = ['Starters', 'Mains', 'Desserts'];
 type AddMenuScreenProps = NativeStackScreenProps<RootStackParamList, 'AddMenu'>;
 
 export default function AddMenuScreen({ navigation, route }: AddMenuScreenProps) {
-  // Initialize with existing items or an empty array
+  // Initialize with existing items or with an empty array
   const [menuItems, setMenuItems] = useState(
-    route.params?.menuItems || [] // Sync with HomeScreen if items exist
+    route.params?.menuItems || [] // Sync with HomeScreen in case items exist
   );
+  const [removedItems, setRemovedItems] = useState<typeof menuItems>([]); // Track removed items
 
   const [dishName, setDishName] = useState('');
   const [description, setDescription] = useState('');
@@ -32,11 +33,23 @@ export default function AddMenuScreen({ navigation, route }: AddMenuScreenProps)
 
   // Remove an item by index
   const handleRemoveItem = (index: number) => {
+    const removedItem = menuItems[index];
     setMenuItems((prevItems) => prevItems.filter((_, i) => i !== index));
+    setRemovedItems((prevRemovedItems) => [...prevRemovedItems, removedItem]);
   };
 
-  // Save changes and feauture
+  // Undo last removed item
+  const handleUndoRemove = () => {
+    if (removedItems.length > 0) {
+      const lastRemoved = removedItems[removedItems.length - 1];
+      setRemovedItems((prevRemovedItems) => prevRemovedItems.slice(0, -1));
+      setMenuItems((prevItems) => [...prevItems, lastRemoved]);
+    }
+  };
+
+  // Save changes and clear undo history
   const handleSaveChanges = () => {
+    setRemovedItems([]); // Clear removed items history after saving
     navigation.navigate('Home', { menuItems });
   };
 
@@ -79,7 +92,7 @@ export default function AddMenuScreen({ navigation, route }: AddMenuScreenProps)
 
       <Button title="Add Dish" onPress={handleAddItem} />
 
-      {/*Remove functionality */}
+      {/* List of items with remove functionality */}
       <FlatList
         data={menuItems}
         keyExtractor={(item, index) => index.toString()}
@@ -89,12 +102,18 @@ export default function AddMenuScreen({ navigation, route }: AddMenuScreenProps)
               {item.dishName} - {item.course} - ${item.price.toFixed(2)}
             </Text>
             <TouchableOpacity onPress={() => handleRemoveItem(index)}>
-            <Text style={styles.removeButton}>Remove</Text>
+              <Text style={styles.removeButton}>Remove</Text>
             </TouchableOpacity>
           </View>
         )}
       />
 
+      {/* Undo Remove Button */}
+      {removedItems.length > 0 && (
+        <TouchableOpacity style={styles.undoButton} onPress={handleUndoRemove}>
+          <Text style={styles.undoButtonText}>Undo Remove</Text>
+        </TouchableOpacity>
+      )}
 
       <Button title="Save Changes" onPress={handleSaveChanges} />
     </View>
@@ -140,7 +159,20 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
   },
+  undoButton: {
+    backgroundColor: '#FF1493',
+    padding: 10,
+    borderRadius: 8,
+    marginVertical: 10,
+    alignItems: 'center',
+  },
+  undoButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
+
 
 
 

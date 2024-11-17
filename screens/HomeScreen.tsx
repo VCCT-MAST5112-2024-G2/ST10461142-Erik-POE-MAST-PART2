@@ -13,12 +13,13 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
       setMenuItems(route.params.menuItems);
     }
   }, [route.params?.menuItems]);
+  
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Chef's Menu</Text>
       
-      {/*Button for "Add Menu" */}
+      {/*"Add Menu Button" */}
       <TouchableOpacity 
         style={styles.button} 
         onPress={() => navigation.navigate('AddMenu', { menuItems })}
@@ -26,10 +27,10 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         <Text style={styles.buttonText}>Add Menu</Text>
       </TouchableOpacity>
       
-      {/*Button for "Filter Menu" */}
+      {/*"Filter Menu Button" */}
       <TouchableOpacity 
         style={styles.button} 
-        onPress={() => navigation.navigate('FilterMenu')}
+        onPress={() => navigation.navigate('FilterMenu', { menuItems })}
       >
         <Text style={styles.buttonText}>Filter Menu</Text>
       </TouchableOpacity>

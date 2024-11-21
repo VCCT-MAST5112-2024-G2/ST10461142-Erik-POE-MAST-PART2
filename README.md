@@ -13,4 +13,4 @@ Change Log:
 
 - Improvement
 # Code has been made to be more organized by separating reusable components (MenuList, AveragePrices, FilterButtons) into new files under the new folder "Components".
-# The buttons on FilterMenuScreen now match the style and behavior of the HomeScreen.
+# The buttons on FilterMenuScreen now match the style of the HomeScreen.
